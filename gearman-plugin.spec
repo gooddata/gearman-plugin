@@ -1,7 +1,7 @@
 %global     plugin_name gearman-plugin
 Name:       jenkins-in-house-plugins-%{plugin_name}
-Version:    0.3.2
-Release:    2%{?dist}
+Version:    0.3.3
+Release:    1%{?dist}
 Summary:    A jenkins in-house plugins %{plugin_name}.hpi
 Obsoletes:  jenkins-upstream-plugins-%{plugin_name} <= %{version}
 Requires:   jenkins
@@ -34,6 +34,9 @@ mvn package
 %{_sharedstatedir}/juseppe/%{plugin_name}.hpi
 
 %changelog
+* Tue Jul 21 2020 +0700 Hien Tran <chien.do@gooddata.com> - 0.3.3-1
+- CONFIG: SETI-618: Provide option for disabling custom gearman job scheduling
+
 * Thu Apr 23 2020 +0700 Hien Tran <hien.tran@gooddata.com> - 0.3.2-3
 - CONFIG: SETI-4077 remove obsoletes package in spec file
 
