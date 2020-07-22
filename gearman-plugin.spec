@@ -11,7 +11,7 @@ URL:        https://github.com/gooddata/%{plugin_name}
 Source0:    %{name}.tar.gz
 
 BuildRequires: java
-BuildRequires: maven
+BuildRequires: maven >= 3.1.1
 
 %description
 Packaged jenkins-in-house-plugin-%{plugin_name} %{plugin_name}.hpi file
