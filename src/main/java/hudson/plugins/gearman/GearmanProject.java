@@ -8,6 +8,7 @@ import org.jenkinsci.plugins.workflow.job.WorkflowJob;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.nio.charset.Charset;
 
 /**
  * This class acts as facade for manipulation with Jenkins items in Gearman plugin. It allows to use
@@ -28,6 +29,16 @@ public abstract class GearmanProject<JobT extends Job, RunT extends Run> {
      */
     static boolean isSupported(Object object){
         return object instanceof WorkflowJob || object instanceof AbstractProject;
+    }
+
+    /**
+     * Does job have ASCII-only name
+     *
+     * @param project to test
+     * @return true if job name is ASCII-only string, otherwise false
+     */
+    static boolean hasAsciiName(GearmanProject project){
+        return Charset.forName("US-ASCII").newEncoder().canEncode(project.getJob().getName());
     }
 
     /**
@@ -56,6 +67,7 @@ public abstract class GearmanProject<JobT extends Job, RunT extends Run> {
                 .stream()
                 .filter( (Job job) -> isSupported(job))
                 .map( (Job job) -> projectFactory(job) )
+                .filter( (GearmanProject project) -> hasAsciiName(project))
                 .collect(Collectors.toList());
     }
 

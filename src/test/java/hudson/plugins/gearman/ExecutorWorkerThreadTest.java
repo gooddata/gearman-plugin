@@ -263,5 +263,27 @@ public class ExecutorWorkerThreadTest{
         assertTrue(functions.contains("build:lemon:master"));
     }
 
+    /*
+     * This test verifies that gearman registers no functions for a project
+     * with non-ASCII name.
+     */
+    @Test
+    public void testRegisterJobs_ProjectNonASCII() throws Exception {
+
+        Project<?, ?> lemon = j.createFreeStyleProject("lémon");
+
+        AbstractWorkerThread oneiric = new ExecutorWorkerThread(
+                "GearmanServer",
+                4730,
+                "MyWorker",
+                slave.toComputer(),
+                "master",
+                new NoopAvailabilityMonitor());
+        oneiric.testInitWorker();
+        oneiric.registerJobs();
+        Set<String> functions = oneiric.worker.getRegisteredFunctions();
+
+        assertEquals(0, functions.size());
+    }
 
 }

@@ -24,6 +24,13 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <repositories>
+        <repository>
+            <id>jenkins</id>
+            <url>http://repo.jenkins-ci.org/releases/</url>
+        </repository>
+    </repositories>
+
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
@@ -91,6 +98,7 @@
         <jenkins-structs-plugin>1.14</jenkins-structs-plugin>
         <maven.javadoc.skip>true</maven.javadoc.skip>
         <findbugs.failOnError>false</findbugs.failOnError>
+        <file.encoding>UTF-8</file.encoding>
     </properties>
 
 
@@ -204,6 +212,9 @@
                         <type>pom</type>
                     </dependency>
                 </dependencies>
+                <configuration>
+                    <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
+                </configuration>
             </plugin>
         </plugins>
     </build>
